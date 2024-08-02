@@ -75,11 +75,11 @@ void speed_cntr_Move(signed int step, unsigned int accel, unsigned int decel, un
     // Just a short delay so main() can act on 'running'.
     srd.step_delay = 1000;
     status.running = TRUE;
-    /*OCR1A = 10;*/
-	OCR0A = 10;
+    OCR1A = 10;
+
     // Run Timer/Counter 1 with prescaler = 8.
-    /*TCCR1B |=  (1 << CS11);*/
-	TCCR0B |= ((1<<CS01) |(0<<CS00));
+    TCCR1B |=  (1 << CS11);
+
   }
   // Only move if number of steps to move is not zero.
   else if (step != 0)
@@ -147,11 +147,11 @@ void speed_cntr_Move(signed int step, unsigned int accel, unsigned int decel, un
     // Reset counter.
     srd.accel_count = 0;
     status.running = TRUE;
-    /*OCR1A = 10;*/
-	OCR0A = 10;
+    OCR1A = 10;
+
     // Set Timer/Counter to divide clock by 8
-    /*TCCR1B |=  (1 << CS11);*/
-	TCCR0B |= ((1<<CS01) |(0<<CS00));
+    TCCR1B |=  (1 << CS11);
+
   }
 
 }
@@ -166,11 +166,11 @@ void speed_cntr_Init_Timer1(void)
 	// Tells what part of speed ramp we are in.
 	srd.run_state = STOP;
 	// Timer/Counter 1 in mode 4 CTC (Not running).
-	/*TCCR1B = (1 << WGM12);*/
-	TCCR0A |= (1<<WGM01);
+	TCCR1B = (1 << WGM12);
+	
 	// Timer/Counter 1 Output Compare A Match Interrupt enable.
-	/* TIMSK1 = (1 << OCIE1A);*/
-	TIMSK0 |= (1<<OCIE0A);
+	 TIMSK1 = (1 << OCIE1A);
+	
 }
 
 /*! \brief Timer/Counter1 Output Compare A Match Interrupt.
@@ -184,7 +184,7 @@ void speed_cntr_Init_Timer1(void)
  *  on basis of accel/decel parameters.
  */
 
-ISR(TIMER0_COMPA_vect)
+ISR(TIMER1_COMPA_vect)
 {
   // Holds next delay period.
   unsigned int new_step_delay;
@@ -195,8 +195,8 @@ ISR(TIMER0_COMPA_vect)
   // Keep track of remainder from new_step-delay calculation to incrase accurancy
   static unsigned int rest = 0;
 
-  /*OCR1A = srd.step_delay;*/
-  OCR0A = srd.step_delay;
+  OCR1A = srd.step_delay;
+
   
   //Output step motor direction
   PORTC |= ((srd.dir)<<PINC3);
@@ -208,7 +208,7 @@ ISR(TIMER0_COMPA_vect)
     rest = 0;
     // Stop Timer/Counter 1.
     /*TCCR1B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));*/
-	TCCR0B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));
+	TCCR1B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));
     status.running = FALSE;
     break;
 

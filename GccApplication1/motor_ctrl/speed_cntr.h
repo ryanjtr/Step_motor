@@ -50,7 +50,7 @@ typedef struct {
  * the timer1 frequency is the clock frequency divided by 8.
  */
 // Timer/Counter 1 running on 8000000 / 8 = 1MHz . (T1-FREQ 100000)
-#define T1_FREQ 125000
+#define T1_FREQ 1000000
 
 //! Number of (full)steps per round on stepper motor in use.
 #define FSPR 200

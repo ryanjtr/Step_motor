@@ -13,7 +13,7 @@
 #include "uart.h"
 /*#include <util/delay.h>*/
 int64_t str1[30];
-int64_t str2[30];
+int64_t str2[100];
 int64_t str3[30];
 
 #define T1_FREQ_ 1000000
@@ -84,13 +84,13 @@ void Init(void)
 void main(void)
 {
   // Number of steps to move.
-  int steps = 800;
+  int steps = 200;
   // Accelration to use.
-  int acceleration = 100;
+  int acceleration = 50;
   // Deceleration to use.
-  int deceleration = 100;
+  int deceleration = 50;
   // Speed to use.
-  int speed = 800;
+  int speed = 100;
 	
 // 	unsigned int accel_ = 25;
 // 	unsigned int speed_ = 50;
@@ -101,31 +101,31 @@ void main(void)
 // 
 // 
 	Init();
-// 
+
 // 	for(int64_t num = min_delay;num<40000;num+=100)
 // 	{
 // 			usart0_send_string("step d= ");
 // 			sprintf(str2,"%d",num);
 // 			usart0_send_string(str2);
-// 			usart0_send_string("\n");
+//  			usart0_send_string("\n");
 // 	}
-// 
-// // 	usart0_send_string("min d= ");
-// // 	sprintf(str3,"%d",min_delay);
-// // 	usart0_send_string(str3);
-// // 	usart0_send_string("\n");
+
+// 	usart0_send_string("min d= ");
+// 	sprintf(str3,"%d",min_delay);
+// 	usart0_send_string(str3);
+// 	usart0_send_string("\n");
 
 	while(1)
 	{
-	speed_cntr_Move(steps, acceleration, deceleration, speed);
-
-	usart0_send_string("status= ");
-	sprintf(str2,"%d",srd.run_state);
-	usart0_send_string(str2);
-	usart0_send_string("\n");
 	
-
-	}
+speed_cntr_Move(steps, acceleration, deceleration, speed);
+// 	usart0_send_string("status= ");
+// 	sprintf(str2,"%d",srd.run_state);
+// 	usart0_send_string(str2);
+// 	usart0_send_string("\n");
+// 	
+// 
+ 	}
 	
 	
 }
