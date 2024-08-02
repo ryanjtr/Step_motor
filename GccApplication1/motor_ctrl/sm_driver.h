@@ -22,7 +22,7 @@
 #define SM_DRIVER_H
 
 // Direction of stepper motor movement
-#define CW  0
+#define CW 0
 #define CCW 1
 
 /*! \Brief Define stepping mode to use in stepper motor.
@@ -30,20 +30,17 @@
  * Either halfsteps (HALFSTEPS) or fullsteps (FULLSTEPS) are allowed.
  *
  */
-#define HALFSTEPS
-//#define FULLSTEPS
+/*#define HALFSTEPS*/
+#define FULLSTEPS
 
 /*! \Brief Define IO port and pins
  *
  * Set the desired drive port and pins to support your device
  *
  */
-#define SM_PORT         PORTC
-#define SM_DRIVE        DDRC
-#define A1    PD7 //!< Stepper motor winding A positive pole.
-#define A2    PD6 //!< Stepper motor winding A negative pole.
-#define B1    PD5 //!< Stepper motor winding B positive pole.
-#define B2    PD4 //!< Stepper motor winding B negative pole.
+#define SM_PORT PORTC
+#define SM_DRIVE DDRC
+
 
 void sm_driver_Init_IO(void);
 unsigned char sm_driver_StepCounter(signed char inc);

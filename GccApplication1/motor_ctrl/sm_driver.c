@@ -20,26 +20,11 @@
  * $RCSfile: sm_driver.c,v $
  * $Date: 2006/05/08 12:25:58 $
  *****************************************************************************/
+
 #include <avr/io.h>
-#include <avr/interrupt.h>
 #include "global.h"
 #include "sm_driver.h"
 
-// Bit position for data in step table
-#define BIT_A1 3
-#define BIT_A2 2
-#define BIT_B1 1
-#define BIT_B2 0
-
-//! Table with control signals for stepper motor
-const unsigned char steptab[] = {((1<<BIT_A1) | (0<<BIT_A2) | (0<<BIT_B1) | (0<<BIT_B2)),
-                                   ((1<<BIT_A1) | (0<<BIT_A2) | (1<<BIT_B1) | (0<<BIT_B2)),
-                                   ((0<<BIT_A1) | (0<<BIT_A2) | (1<<BIT_B1) | (0<<BIT_B2)),
-                                   ((0<<BIT_A1) | (1<<BIT_A2) | (1<<BIT_B1) | (0<<BIT_B2)),
-                                   ((0<<BIT_A1) | (1<<BIT_A2) | (0<<BIT_B1) | (0<<BIT_B2)),
-                                   ((0<<BIT_A1) | (1<<BIT_A2) | (0<<BIT_B1) | (1<<BIT_B2)),
-                                   ((0<<BIT_A1) | (0<<BIT_A2) | (0<<BIT_B1) | (1<<BIT_B2)),
-                                   ((1<<BIT_A1) | (0<<BIT_A2) | (0<<BIT_B1) | (1<<BIT_B2))};
 
 //! Position of stepper motor (relative to starting position as zero)
 int stepPosition = 0;
@@ -49,11 +34,9 @@ int stepPosition = 0;
 void sm_driver_Init_IO(void)
 {
   // Init of IO pins
-//   SM_PORT &= ~((1<<A1) | (1<<A2) | (1<<B1) | (1<<B2)); // Set output pin registers to zero
-//   SM_DRIVE |= ((1<<A1) | (1<<A2) | (1<<B1) | (1<<B2)); // Set output pin direction registers to output
   
-	DDRC  |= (1<<DDC2) | (1<<DDC3);
-	/*PORTC |= (1<<PINC2) | (1<<PINC3);*/
+  DDRC |= ((1<<DDC2) |(1<<DDC3)) ; // Set output pin direction registers to output
+/*  SM_PORT &= ~((1<<PINC2) | (1<<PINC3)); // Set output pin registers to zero*/
 }
 
 /*! \brief Move the stepper motor one step.
@@ -110,33 +93,9 @@ unsigned char sm_driver_StepCounter(signed char inc)
  */
 void sm_driver_StepOutput(unsigned char pos)
 {
-  unsigned char temp = steptab[pos];
-
-  /*
-  // Output bit by bit
-  if(temp&(1<<BIT_A1))
-    SM_PORT |= (1<<A1);
-  else
-    SM_PORT &= ~(1<<A1);
-
-  if(temp&(1<<BIT_A2))
-    SM_PORT |= (1<<A2);
-  else
-    SM_PORT &= ~(1<<A2);
-
-  if(temp&(1<<BIT_B1))
-    SM_PORT |= (1<<B1);
-  else
-    SM_PORT &= ~(1<<B1);
-
-  if(temp&(1<<BIT_B2))
-    SM_PORT |= (1<<B2);
-  else
-    SM_PORT &= ~(1<<B2);
-  */
-
+  
   // Output the fast way
-  SM_PORT |= ((temp<<4)&0xF0);
-  SM_PORT &= ((temp<<4)|0x0F );
-
+//   SM_PORT |= ((temp<<4)&0xF0);
+//   SM_PORT &= ((temp<<4)|0x0F);
+	PORTC ^=(1<<PINC2);
 }
