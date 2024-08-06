@@ -8,5 +8,3 @@ motor_ctrl\sm_driver.c
 
 motor_ctrl\speed_cntr.c
 
-motor_ctrl\uart.c
-

@@ -40,8 +40,7 @@ SUBDIRS :=  \
 C_SRCS +=  \
 ../main.c \
 ../motor_ctrl/sm_driver.c \
-../motor_ctrl/speed_cntr.c \
-../motor_ctrl/uart.c
+../motor_ctrl/speed_cntr.c
 
 
 PREPROCESSING_SRCS += 
@@ -53,26 +52,22 @@ ASM_SRCS +=
 OBJS +=  \
 main.o \
 motor_ctrl/sm_driver.o \
-motor_ctrl/speed_cntr.o \
-motor_ctrl/uart.o
+motor_ctrl/speed_cntr.o
 
 OBJS_AS_ARGS +=  \
 main.o \
 motor_ctrl/sm_driver.o \
-motor_ctrl/speed_cntr.o \
-motor_ctrl/uart.o
+motor_ctrl/speed_cntr.o
 
 C_DEPS +=  \
 main.d \
 motor_ctrl/sm_driver.d \
-motor_ctrl/speed_cntr.d \
-motor_ctrl/uart.d
+motor_ctrl/speed_cntr.d
 
 C_DEPS_AS_ARGS +=  \
 main.d \
 motor_ctrl/sm_driver.d \
-motor_ctrl/speed_cntr.d \
-motor_ctrl/uart.d
+motor_ctrl/speed_cntr.d
 
 OUTPUT_FILE_PATH +=GccApplication1.elf
 
@@ -103,13 +98,6 @@ motor_ctrl/sm_driver.o: ../motor_ctrl/sm_driver.c
 	
 
 motor_ctrl/speed_cntr.o: ../motor_ctrl/speed_cntr.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)F:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=8000000  -I"F:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../motor_ctrl"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "F:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-motor_ctrl/uart.o: ../motor_ctrl/uart.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)F:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=8000000  -I"F:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include" -I"../motor_ctrl"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "F:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

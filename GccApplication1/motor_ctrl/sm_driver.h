@@ -30,8 +30,8 @@
  * Either halfsteps (HALFSTEPS) or fullsteps (FULLSTEPS) are allowed.
  *
  */
-/*#define HALFSTEPS*/
-#define FULLSTEPS
+//#define HALFSTEPS
+ #define FULLSTEPS
 
 /*! \Brief Define IO port and pins
  *
@@ -41,10 +41,7 @@
 #define SM_PORT PORTC
 #define SM_DRIVE DDRC
 
-
 void sm_driver_Init_IO(void);
-unsigned char sm_driver_StepCounter(signed char inc);
-void sm_driver_StepOutput(unsigned char pos);
 
 //! Position of stepper motor.
 extern int stepPosition;

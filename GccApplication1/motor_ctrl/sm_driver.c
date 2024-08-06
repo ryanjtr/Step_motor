@@ -25,7 +25,6 @@
 #include "global.h"
 #include "sm_driver.h"
 
-
 //! Position of stepper motor (relative to starting position as zero)
 int stepPosition = 0;
 
@@ -34,68 +33,5 @@ int stepPosition = 0;
 void sm_driver_Init_IO(void)
 {
   // Init of IO pins
-  
-  DDRC |= ((1<<DDC2) |(1<<DDC3)) ; // Set output pin direction registers to output
-/*  SM_PORT &= ~((1<<PINC2) | (1<<PINC3)); // Set output pin registers to zero*/
-}
-
-/*! \brief Move the stepper motor one step.
- *
- *  Makes the stepcounter inc/dec one value and outputs this to the
- *  steppermotor.
- *  This function works like a stepper motor controller, a call to the function
- *  is the stepping pulse, and parameter 'inc' is the direction signal.
- *
- *  \param inc  Direction to move.
- *  \return  Stepcounter value.
- */
-unsigned char sm_driver_StepCounter(signed char inc)
-{
-  // Counts 0-1-...-6-7 in halfstep, 0-2-4-6 in fullstep
-  static unsigned char counter = 0;
-  // Update
-  if(inc == CCW){
-    stepPosition--;
-  }
-  else{
-    stepPosition++;
-  }
-
-#ifdef HALFSTEPS
-  if(inc){
-    counter++;
-  }
-  else{
-    counter--;
-  }
-#else
-  if(inc){
-    counter += 2;
-  }
-  else{
-    counter -= 2;
-  }
-#endif
-
-  // Stay within the steptab
-  counter &= 0x07;
-  sm_driver_StepOutput(counter);
-  return(counter);
-}
-
-/*! \brief Convert the stepcounter value to signals for the stepper motor.
- *
- *  Uses the stepcounter value as index in steptab to get correct
- *  steppermotor control signals.
- *  Converts these signals to work with the stepper driver hardware.
- *
- *  \param pos  Stepcounter value.
- */
-void sm_driver_StepOutput(unsigned char pos)
-{
-  
-  // Output the fast way
-//   SM_PORT |= ((temp<<4)&0xF0);
-//   SM_PORT &= ((temp<<4)|0x0F);
-	PORTC ^=(1<<PINC2);
+  DDRC |= ((1 << DDC2) | (1 << DDC3)); // Set output pin direction registers to output
 }
